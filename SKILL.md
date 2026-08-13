@@ -52,7 +52,7 @@ description: 等保大模型测评技能。按网络安全等级保护制度（G
 
 ## 使用教程（如何让各家 Agent 加载本 Skill）
 
-见 **[`USAGE.md`](USAGE.md)** —— 覆盖 A(原生 SKILL.md：Hermes/OpenClaw/Codex/Claude Code/Claude.ai/ChatGPT)、B(AGENTS.md 规则型：Cursor/Copilot)、C(国内平台：Coze/Dify/Kimi/百炼 知识库接入)、D(人工手册) 四类。首次使用先读 `USAGE.md` 选接入方式，再按本文件流程执行。
+见 **[`README.md`](README.md#使用教程)** 的「使用教程」章节 —— 覆盖 A(原生 SKILL.md：Hermes/OpenClaw/Codex/Claude Code/Claude.ai/ChatGPT)、B(AGENTS.md 规则型：Cursor/Copilot)、C(国内平台：Coze/Dify/Kimi/百炼 知识库接入)、D(人工手册) 四类。首次使用先选接入方式，再按本文件流程执行。
 
 ## 目录导航
 
