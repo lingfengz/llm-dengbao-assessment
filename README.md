@@ -51,8 +51,9 @@
 ### A1. Hermes（本地主力 Agent）
 
 ```bash
-mkdir -p ~/.hermes/skills/llm-dengbao-assessment
-cp -r "***REMOVED***" ~/.hermes/skills/llm-dengbao-assessment/
+git clone https://github.com/lingfengz/llm-dengbao-assessment.git
+mkdir -p ~/.hermes/skills/
+cp -r llm-dengbao-assessment ~/.hermes/skills/
 ```
 
 装载后可直接用「等保大模型测评」「编制大模型测评方案」「设计提示注入测试用例」等指令触发。
@@ -65,8 +66,9 @@ openclaw skills install git:lingfengz/llm-dengbao-assessment
 # 或安装到当前工作区（最高优先级）
 openclaw skills install git:lingfengz/llm-dengbao-assessment --as llm-dengbao-assessment
 # 或手动拷贝到全局目录
-mkdir -p ~/.openclaw/skills/llm-dengbao-assessment
-cp -r "***REMOVED***" ~/.openclaw/skills/llm-dengbao-assessment/
+git clone https://github.com/lingfengz/llm-dengbao-assessment.git
+mkdir -p ~/.openclaw/skills/
+cp -r llm-dengbao-assessment ~/.openclaw/skills/
 ```
 
 OpenClaw 加载优先级（高→低）：工作区 `/skills` → 项目 `/.agents/skills` → 个人 `~/.agents/skills` → 本地 `~/.openclaw/skills` → 内置。同名 Skill 以高优先级为准。
@@ -74,18 +76,21 @@ OpenClaw 加载优先级（高→低）：工作区 `/skills` → 项目 `/.agen
 ### A3. Codex（OpenAI CLI）
 
 ```bash
-mkdir -p ~/.codex/skills/llm-dengbao-assessment
-cp -r "***REMOVED***" ~/.codex/skills/llm-dengbao-assessment/
+git clone https://github.com/lingfengz/llm-dengbao-assessment.git
+mkdir -p ~/.codex/skills/
+cp -r llm-dengbao-assessment ~/.codex/skills/
 ```
+（项目级放入 `.codex/skills/`，效果相同。）
 
 或放入 `~/.agents/skills/`（兼容通用约定）。Codex 采用渐进式加载：启动只读 `name`/`description`，任务匹配后读完整 `SKILL.md`。可用 `$llm-dengbao-assessment` 显式调用或自动匹配触发。
 
 ### A4. Claude Code
 
 ```bash
-mkdir -p .claude/skills/llm-dengbao-assessment
-cp -r "***REMOVED***" .claude/skills/llm-dengbao-assessment/
-# 或在 Claude Code 对话框中：/skills add "***REMOVED***
+git clone https://github.com/lingfengz/llm-dengbao-assessment.git
+mkdir -p .claude/skills/
+cp -r llm-dengbao-assessment .claude/skills/
+# 或在 Claude Code 对话框中：/skills add llm-dengbao-assessment
 ```
 
 ### A5. Claude.ai / ChatGPT（无桌面安装，直接粘贴）
@@ -111,8 +116,7 @@ cp -r "***REMOVED***" .claude/skills/llm-dengbao-assessment/
 
 ```markdown
 # 项目规范
-当涉及"大模型系统等保测评"任务时，遵循仓库
-`***REMOVED*** 的方法体系：
+当涉及"大模型系统等保测评"任务时，遵循本仓库 `llm-dengbao-assessment/` 的方法体系：
 1. 先读 `SKILL.md` 确定测评范围与流程
 2. 按需加载 `references/02`、`references/03` 选测评项
 3. 专项测试用 `references/07` 的现成用例
