@@ -57,4 +57,4 @@
 
 ## License
 
-[MIT](LICENSE) © 2026 lingfeng (lingfengz) &lt;***REMOVED***&gt;
+[MIT](LICENSE) © 2026 lingfeng (lingfengz)
