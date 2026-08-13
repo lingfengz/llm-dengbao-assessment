@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>等保大模型测评方法总览</title>
+<style>
+  :root{--bg:#f5f7fa;--card:#fff;--ink:#1f2937;--mut:#6b7280;--line:#e5e7eb;--blue:#2563eb;--blue-bg:#eff6ff;--green:#059669;--green-bg:#ecfdf5;--red:#dc2626;--red-bg:#fef2f2;--amber:#d97706;--amber-bg:#fffbeb;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 64px;}
+  header.hero{background:linear-gradient(135deg,#1e3a8a,#2563eb 60%,#3b82f6);color:#fff;border-radius:16px;padding:40px 36px;margin-bottom:28px;}
+  header.hero h1{font-size:28px;margin-bottom:10px;}
+  header.hero p{opacity:.92;font-size:15px;max-width:760px;}
+  .badges{margin-top:16px;}
+  .badge{display:inline-block;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:4px 12px;font-size:12.5px;margin:4px 6px 0 0;}
+  .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:28px;}
+  .metric{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center;}
+  .metric .num{font-size:26px;font-weight:700;color:var(--blue);}
+  .metric .lbl{font-size:13px;color:var(--mut);margin-top:4px;}
+  h2{font-size:20px;margin:36px 0 16px;padding-left:12px;border-left:4px solid var(--blue);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:16px;}
+  .card h3{font-size:16px;margin-bottom:10px;}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card);border-radius:12px;overflow:hidden;}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;}
+  th{background:#f9fafb;font-weight:600;white-space:nowrap;}
+  .timeline{position:relative;padding-left:28px;}
+  .timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--line);}
+  .step{position:relative;margin-bottom:18px;}
+  .step .marker{position:absolute;left:-28px;top:2px;width:20px;height:20px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .step .title{font-weight:600;}
+  .step .text{font-size:13.5px;color:#4b5563;}
+  .tag{display:inline-block;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600;margin-right:6px;}
+  .tag.blue{background:var(--blue-bg);color:var(--blue);}
+  .tag.green{background:var(--green-bg);color:var(--green);}
+  .tag.red{background:var(--red-bg);color:var(--red);}
+  .tag.amber{background:var(--amber-bg);color:var(--amber);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr;}}
+  figure{margin:8px 0 4px;text-align:center;}
+  figcaption{font-size:12.5px;color:var(--mut);margin-top:6px;}
+  .note{background:var(--amber-bg);border:1px solid #fde68a;border-radius:10px;padding:12px 16px;font-size:13px;color:#92400e;margin:14px 0;}
+  ul.tight{padding-left:20px;font-size:13.5px;}
+  ul.tight li{margin-bottom:5px;}
+  footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12.5px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>等保大模型测评方法总览</h1>
+  <p>面向大模型系统（训练平台 / 推理服务 / RAG / Agent / 一体机）的网络安全等级保护测评方法体系：测评方法、测评步骤、测评项清单、整改要求与管理制度配套，基于 GB/T 22239-2019、GB/T 28448-2019、大模型扩展要求、GB/T 45654-2025、GB 45438-2025 与 2025 版高风险判定指引。</p>
+  <div class="badges">
+    <span class="badge">5 大技术类 + 5 大管理类控制域</span>
+    <span class="badge">6 大大模型专项测评域</span>
+    <span class="badge">10 项大模型高风险判定</span>
+    <span class="badge">10 份制度模板</span>
+    <span class="badge">40+ 专项测试用例</span>
+  </div>
+</header>
+
+<div class="metrics">
+  <div class="metric"><div class="num">5</div><div class="lbl">测评阶段</div></div>
+  <div class="metric"><div class="num">4</div><div class="lbl">测评方法（I/C/T/A）</div></div>
+  <div class="metric"><div class="num">7</div><div class="lbl">参考知识文件</div></div>
+  <div class="metric"><div class="num">4</div><div class="lbl">工作模板</div></div>
+</div>
+
+<h2>测评流程（五阶段）</h2>
+<div class="card">
+  <div class="timeline">
+    <div class="step"><span class="marker">1</span><div class="title">测评准备</div><div class="text">调研访谈、资料收集（模型资产 / 数据资产 / 拓扑 / 备案）、确定测评边界与测试授权。</div></div>
+    <div class="step"><span class="marker">2</span><div class="title">方案编制</div><div class="text">选取测评指标（通用 + 大模型扩展 LLM- 项）、确定方法组合与工具、进度与风险控制。</div></div>
+    <div class="step"><span class="marker">3</span><div class="title">现场测评</div><div class="text">访谈 + 核查 + 技术测试 + <b>大模型专项测试</b>（提示注入 / 越狱 / 内容安全 / 数据泄露 / 幻觉 / API / 标识），逐项固化证据。</div></div>
+    <div class="step"><span class="marker">4</span><div class="title">结果分析</div><div class="text">单项 → 单元 → 整体判定；对照 2025 版高风险判定指引核对 10 项大模型高风险项。</div></div>
+    <div class="step"><span class="marker">5</span><div class="title">报告编制与整改</div><div class="text">出具测评结论、问题清单、整改建议（五要素）；整改后复测闭环。</div></div>
+  </div>
+</div>
+
+<figure>
+  <svg viewBox="0 0 1000 300" width="100%" style="max-width:900px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="等保大模型测评流程示意图">
+    <defs>
+      <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#2563eb"/></marker>
+    </defs>
+    <rect x="10" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="85" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">测评准备</text>
+    <text x="85" y="62" text-anchor="middle" font-size="11" fill="#475569">定级备案·边界·授权</text>
+    <line x1="162" y1="46" x2="198" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="200" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="275" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">方案编制</text>
+    <text x="275" y="62" text-anchor="middle" font-size="11" fill="#475569">指标·方法·工具</text>
+    <line x1="352" y1="46" x2="388" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="390" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="465" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">现场测评</text>
+    <text x="465" y="62" text-anchor="middle" font-size="11" fill="#475569">访谈·核查·测试·专项</text>
+    <line x1="542" y1="46" x2="578" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="580" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="655" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">结果分析</text>
+    <text x="655" y="62" text-anchor="middle" font-size="11" fill="#475569">判定·高风险核对</text>
+    <line x1="732" y1="46" x2="768" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="770" y="20" width="190" height="52" rx="10" fill="#dcfce7" stroke="#059669" stroke-width="2"/>
+    <text x="865" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">报告·整改·复测</text>
+    <text x="865" y="62" text-anchor="middle" font-size="11" fill="#475569">高风险整改→复测闭环</text>
+
+    <rect x="10" y="130" width="230" height="150" rx="10" fill="#fff" stroke="#e5e7eb"/>
+    <text x="125" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">大模型专项测试（A 类）</text>
+    <text x="22" y="176" font-size="11.5" fill="#374151">• 提示注入（直接/间接/多轮）</text>
+    <text x="22" y="196" font-size="11.5" fill="#374151">• 越狱（角色/编码/虚构场景）</text>
+    <text x="22" y="216" font-size="11.5" fill="#374151">• 内容安全（八类有害信息）</text>
+    <text x="22" y="236" font-size="11.5" fill="#374151">• 数据泄露与越权（RAG/知识库）</text>
+    <text x="22" y="256" font-size="11.5" fill="#374151">• 幻觉·API 滥用·内容标识·Agent</text>
+
+    <rect x="270" y="130" width="230" height="150" rx="10" fill="#fff" stroke="#e5e7eb"/>
+    <text x="385" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">六大专项测评域</text>
+    <text x="282" y="176" font-size="11.5" fill="#374151">① 语料安全  ② 训练安全</text>
+    <text x="282" y="196" font-size="11.5" fill="#374151">③ 模型安全  ④ 推理服务安全</text>
+    <text x="282" y="216" font-size="11.5" fill="#374151">⑤ 内容安全  ⑥ 数据安全</text>
+    <text x="282" y="246" font-size="11" fill="#6b7280">依据 GB/T 45654-2025、GB 45438-2025</text>
+    <text x="282" y="264" font-size="11" fill="#6b7280">与大模型扩展要求整理</text>
+
+    <rect x="530" y="130" width="230" height="150" rx="10" fill="#fff" stroke="#e5e7eb"/>
+    <text x="645" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">10 项大模型高风险判定</text>
+    <text x="542" y="176" font-size="11.5" fill="#374151">• 越狱无过滤 · 语料含敏感信息</text>
+    <text x="542" y="196" font-size="11.5" fill="#374151">• API 无鉴权 · 注入致数据泄露</text>
+    <text x="542" y="216" font-size="11.5" fill="#374151">• 模型无校验 · 未备案 · 无标识</text>
+    <text x="542" y="236" font-size="11.5" fill="#374151">• 用户数据违规训练 · 幻觉失控</text>
+    <text x="542" y="256" font-size="11.5" fill="#374151">• 与承载系统越权互访</text>
+
+    <rect x="790" y="130" width="200" height="150" rx="10" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="890" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">整改与制度配套</text>
+    <text x="802" y="176" font-size="11.5" fill="#374151">• 高/中/低三级整改时限</text>
+    <text x="802" y="196" font-size="11.5" fill="#374151">• 大模型专项整改措施</text>
+    <text x="802" y="216" font-size="11.5" fill="#374151">• 复测验证闭环</text>
+    <text x="802" y="246" font-size="11" fill="#6b7280">10 份制度模板可直接取用</text>
+  </svg>
+  <figcaption>等保大模型测评流程与专项测评体系示意图</figcaption>
+</figure>
+
+<h2>测评方法体系</h2>
+<div class="card">
+  <table>
+    <tr><th>方法</th><th>适用场景</th><th>大模型场景示例</th></tr>
+    <tr><td><span class="tag blue">访谈 I</span></td><td>管理类要求、流程类要求</td><td>与算法团队访谈训练数据来源与模型发布审批流程</td></tr>
+    <tr><td><span class="tag blue">核查 C</span></td><td>制度、配置、日志、记录</td><td>核查语料来源清单、脱敏记录、模型哈希、内容审核日志、备案材料</td></tr>
+    <tr><td><span class="tag blue">测试 T</span></td><td>技术类要求、漏洞与配置</td><td>漏洞扫描、基线核查、API 接口与权限测试</td></tr>
+    <tr><td><span class="tag blue">专项 A</span></td><td>模型与内容安全</td><td>提示注入、越狱、内容安全、数据泄露、幻觉、鲁棒性、水印检测</td></tr>
+  </table>
+  <div class="note">大模型专项控制点必须以 A 类测试为主，不能仅凭访谈结论判定符合。</div>
+</div>
+
+<h2>技术类测评域（五大类 + 大模型扩展）</h2>
+<div class="card">
+  <table>
+    <tr><th>测评域</th><th>核心控制点</th><th>大模型扩展项（LLM-）</th></tr>
+    <tr><td>安全物理环境</td><td>物理位置/访问控制/防雷防火/温湿度/电力/电磁</td><td>算力机房环境监控、训练断点续训保障</td></tr>
+    <tr><td>安全通信网络</td><td>网络架构/通信传输/可信验证</td><td>训练·推理·管理网络隔离、模型数据跨网管控、外部 API 通道安全</td></tr>
+    <tr><td>安全区域边界</td><td>边界防护/访问控制/入侵防范/恶意代码/审计</td><td>大模型服务边界防护（MAF/WAF）、训练数据出域控制、推理接口滥用防护</td></tr>
+    <tr><td>安全计算环境</td><td>身份鉴别/访问控制/审计/入侵/恶意代码/数据安全</td><td>模型仓库权限、模型完整性校验、版本管理、后门检测、鲁棒性、水印、防窃取、提示注入/越狱防护、输入输出过滤、内容标识、幻觉治理、RAG 检索安全、Agent 工具安全、训练环境隔离、语料安全、数据投毒防护、用户数据保护</td></tr>
+    <tr><td>安全管理中心</td><td>系统管理/审计管理/安全管理/集中管控</td><td>模型安全运营监测、大模型安全事件溯源</td></tr>
+  </table>
+</div>
+
+<h2>大模型高风险判定（部分）</h2>
+<div class="card">
+  <table>
+    <tr><th>编号</th><th>高风险情形</th><th>判定要点</th></tr>
+    <tr><td>LLM-HR-1</td><td>越狱/提示注入可突破且无内容过滤</td><td>越狱测试成功率超标且无输出过滤；面向公众服务直接判高风险</td></tr>
+    <tr><td>LLM-HR-2</td><td>训练语料含未脱敏敏感个人信息/涉密数据</td><td>语料抽测发现明文敏感信息且无脱敏措施</td></tr>
+    <tr><td>LLM-HR-3</td><td>推理 API 无鉴权或可被任意调用</td><td>接口测试未认证可调用</td></tr>
+    <tr><td>LLM-HR-4</td><td>提示注入导致数据泄露（RAG/Agent）</td><td>注入测试成功读取受限数据</td></tr>
+    <tr><td>LLM-HR-6</td><td>面向公众服务未完成算法备案/安全评估</td><td>备案缺失 + 面向公众</td></tr>
+    <tr><td>LLM-HR-7</td><td>生成内容无标识</td><td>抽测无显式/隐式标识（违反强制国标）</td></tr>
+  </table>
+</div>
+
+<h2>整改要求速览</h2>
+<div class="grid2">
+  <div class="card">
+    <h3>整改分级</h3>
+    <table>
+      <tr><th>级别</th><th>时限建议</th></tr>
+      <tr><td><span class="tag red">高风险</span></td><td>立即启动，1~2 周内完成或临时管控，必须复测</td></tr>
+      <tr><td><span class="tag amber">中风险</span></td><td>1 个月内</td></tr>
+      <tr><td><span class="tag green">低风险</span></td><td>3 个月内 / 下轮测评前</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h3>整改闭环</h3>
+    <ul class="tight">
+      <li>整改通知（问题→风险→措施→责任部门→时限）</li>
+      <li>整改计划 → 实施整改（制度/配置/专项防护）</li>
+      <li>复测验证（高风险项逐项回归）</li>
+      <li>报告更新 → 持续监测（月度监测、季度复评）</li>
+    </ul>
+  </div>
+</div>
+
+
+
+<h2>T/ISEAA 006-2024 条款级映射</h2>
+<div class="card">
+  <p style="font-size:13.5px;margin-bottom:12px;">依据 T/ISEAA 006-2024《大模型系统安全测评要求》全文（公安部三所牵头、中关村信息安全测评联盟发布，与 T/ISEAA 005-2024《大模型系统安全保护要求》配套，2024-06-01 实施），全部测评项已按标准条款逐项映射。005 给出四层参考架构：基础设施层（算力/网络/存储）→ 平台层（模型调优/交付/运营、数据工程）→ 模型层（基础/行业/专属大模型）→ 应用层（Agent、RAG、GPTs、API）。每个控制点含"测评指标（x.y.1）→ 测评实施（x.y.2）→ 结果判定（x.y.3）"三小节。</p>
+  <table>
+    <tr><th>006 条款</th><th>控制点</th><th>本 skill 对应</th></tr>
+    <tr><td>5.1~5.14 通用安全</td><td>物理环境/网络架构/边界防护/身份鉴别/访问控制/安全审计/入侵防范/恶意代码防范/集中管控/供应链管理/个人信息保护/数据安全保护/备份恢复/数据溯源</td><td>02 五大技术域 + LLM-PHY/NET/BND/ACC/SMC + 03 管理类 + 04 域 6</td></tr>
+    <tr><td>6.1 数据处理</td><td>数据收集 / 数据清洗 / 数据标注</td><td>04 域 1 + LLM-DAT-1~3 + 制度模板 02</td></tr>
+    <tr><td>6.2 模型保护</td><td>模型安全管理制度、框架依赖检测、输入检测过滤（注入/对抗/后门）、异常输入稳定性、加密与完整性、防参数泄露、防成员推理、训练推理隔离、模型标识</td><td>04 域 3 + LLM-MOD-1~7 + LLM-TRN-1</td></tr>
+    <tr><td>6.3 内容安全</td><td>输入输出过滤、拒绝与引导、用户反馈、显式/隐式/元数据标识、使用者协议、常态化监测与优化</td><td>04 域 5 + LLM-INF-3/4/5 + 制度模板 03</td></tr>
+    <tr><td>7.1 模型评估 / 7.2 模型更新</td><td>对抗性测试、内容安全评估、稳定性评估、评估体系与数据集、双人核验；更新审批、升级包校验、备份回退</td><td>制度模板 08 + 07 用例库 + LLM-MOD-2/5</td></tr>
+    <tr><td>8.1~8.7 部署与运行</td><td>模型部署/攻击检测（窃取/重构/注入/后门/成员推理等）/运行监测（风险率/拒答率等）/系统管理/变更管理/事件处置/应急预案</td><td>07 用例库 + LLM-INF-1/2 + LLM-SMC-1 + LLM-OPS-1~5 + 制度模板 05/06</td></tr>
+    <tr><td>9.1 模型退役 / 9.2 数据删除</td><td>退役流程与通知、归档与审计；不可恢复删除、个人信息删除/匿名化</td><td>LLM-OPS-5 + 剩余信息保护 + LLM-DAT-4</td></tr>
+    <tr><td>10 测评结论判定</td><td>加权计算 → 符合 / 基本符合 / 不符合（高风险或中低风险超阈值即不符合）</td><td>01 判定规则 + 06 高风险判定</td></tr>
+  </table>
+  <div class="note">每个控制点判定为"符合 / 不符合或部分符合"，整体结论按第 10 章算术加权与风险分析判定；完整逐条映射见 references/08。</div>
+</div>
+
+<h2>常用达标产品与设备参考</h2>
+<div class="card">
+  <table>
+    <tr><th>测评域</th><th>达标产品/设备形态</th><th>代表厂商（参考）</th></tr>
+    <tr><td>物理环境</td><td>门禁、视频监控、精密空调、动环监控、UPS、气体灭火</td><td>海康威视、大华；维谛、依米康、英维克；山特、华为、科华</td></tr>
+    <tr><td>通信网络</td><td>交换机 VLAN/VRF 隔离、SSL/IPSec VPN、密码机</td><td>华为、H3C、锐捷；深信服、奇安信；卫士通、江南天安</td></tr>
+    <tr><td>区域边界</td><td>下一代防火墙、IPS、WAF、防病毒网关、日志审计</td><td>深信服、奇安信、华为、山石、天融信；绿盟、启明星辰；长亭雷池、安恒</td></tr>
+    <tr><td>计算环境</td><td>4A 认证、双因素、堡垒机、HIDS/EDR、漏扫、数据库审计、数据加密、备份一体机、DLP</td><td>派拉、芯盾、飞天诚信、齐治、帕拉迪；青藤云、奇安信；美创、安华金和、爱数、鼎甲</td></tr>
+    <tr><td>大模型专项</td><td>大模型应用防火墙 MAF、内容审核平台、内容标识服务、AI 安全评估/红队平台、模型仓库、隐私计算</td><td>启明星辰、绿盟、360、安恒、瑞数；网易易盾、百度 AI 审核、腾讯云天御；中科睿鉴；蚂蚁摩斯、华控清交</td></tr>
+    <tr><td>安全管理中心</td><td>态势感知/SOC、SIEM、模型安全运营平台</td><td>奇安信、深信服、安恒、微步在线；360、启明星辰</td></tr>
+  </table>
+  <div class="note">产品为常见形态参考，不限定品牌，符合性判定以功能要求为准；核查时按"是否具备该能力"取证，整改选型时同等能力国产产品优先。</div>
+</div>
+
+<h2>配套管理制度（10 份模板）</h2>
+<div class="card">
+  <ul class="tight">
+    <li><b>01 大模型系统安全管理制度（总纲）</b> — 组织职责、策略、制度体系、监督检查</li>
+    <li><b>02 大模型数据与语料安全管理制度</b> — 数据分级、语料准入、脱敏、知识库与用户数据</li>
+    <li><b>03 大模型内容安全管理制度</b> — 八类有害信息、输入输出管控、内容标识、投诉举报、未成年人保护</li>
+    <li><b>04 大模型开发训练安全管理制度</b> — 环境隔离、数据门禁、模型安全控制、发布审批</li>
+    <li><b>05 大模型部署运维安全管理制度</b> — 部署验收、权限、监控审计、变更、备份、漏洞、退役</li>
+    <li><b>06 大模型安全事件应急预案</b> — 分级、处置流程、演练、报告模板</li>
+    <li><b>07 大模型供应链安全管理制度</b> — 供应商评估、合同条款、开源模型引入、风险监测</li>
+    <li><b>08 大模型安全评估与红队测试制度</b> — 评估类型频次、测试管理、整改闭环</li>
+    <li><b>09 大模型用户隐私保护与投诉处理制度</b> — 最小必要、删除权、投诉处理流程</li>
+    <li><b>10 大模型人员安全与保密管理制度</b> — 岗位职责、录用离岗、行为禁令、外部人员</li>
+  </ul>
+</div>
+
+<h2>目录结构</h2>
+<div class="card">
+<pre style="font-size:12.5px;background:#f9fafb;border:1px solid var(--line);border-radius:8px;padding:14px;overflow-x:auto;">大模型测评 skill/
+├── SKILL.md                          # Skill 主入口
+├── README.md                         # 项目说明（GitHub）
+├── 等保大模型测评方法总览.html        # 本页
+├── references/                       # 测评知识库
+│   ├── 01-测评方法与测评步骤.md
+│   ├── 02-技术类测评项清单.md
+│   ├── 03-管理类测评项清单.md
+│   ├── 04-大模型专项测评要点.md
+│   ├── 05-整改要求与整改流程.md
+│   ├── 06-高风险判定指引.md
+│   └── 07-大模型专项测试用例库.md
+└── assets/
+    ├── 制度文件模板/                 # 10 份管理制度模板
+    └── 模板/                         # 测评方案/记录表/报告/整改计划</pre>
+</div>
+
+<footer>等保大模型测评 Skill · 依据 GB/T 22239-2019 / GB/T 28448-2019 / 大模型扩展要求（征求意见稿）/ GB/T 45654-2025 / GB 45438-2025 / 2025版高风险判定指引 整理 · 正式测评以现行有效标准文本为准</footer>
+
+</div>
+</body>
+</html>

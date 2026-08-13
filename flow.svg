@@ -1,0 +1,55 @@
+<svg viewBox="0 0 1000 300" width="100%" style="max-width:900px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="等保大模型测评流程示意图">
+    <defs>
+      <marker id="arr" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L10,4 L0,8 Z" fill="#2563eb"/></marker>
+    </defs>
+    <rect x="10" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="85" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">测评准备</text>
+    <text x="85" y="62" text-anchor="middle" font-size="11" fill="#475569">定级备案·边界·授权</text>
+    <line x1="162" y1="46" x2="198" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="200" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="275" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">方案编制</text>
+    <text x="275" y="62" text-anchor="middle" font-size="11" fill="#475569">指标·方法·工具</text>
+    <line x1="352" y1="46" x2="388" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="390" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="465" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">现场测评</text>
+    <text x="465" y="62" text-anchor="middle" font-size="11" fill="#475569">访谈·核查·测试·专项</text>
+    <line x1="542" y1="46" x2="578" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="580" y="20" width="150" height="52" rx="10" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+    <text x="655" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#1e3a8a">结果分析</text>
+    <text x="655" y="62" text-anchor="middle" font-size="11" fill="#475569">判定·高风险核对</text>
+    <line x1="732" y1="46" x2="768" y2="46" stroke="#2563eb" stroke-width="2" marker-end="url(#arr)"/>
+    <rect x="770" y="20" width="190" height="52" rx="10" fill="#dcfce7" stroke="#059669" stroke-width="2"/>
+    <text x="865" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">报告·整改·复测</text>
+    <text x="865" y="62" text-anchor="middle" font-size="11" fill="#475569">高风险整改→复测闭环</text>
+
+    <rect x="10" y="130" width="230" height="150" rx="10" fill="#fff" stroke="#e5e7eb"/>
+    <text x="125" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">大模型专项测试（A 类）</text>
+    <text x="22" y="176" font-size="11.5" fill="#374151">• 提示注入（直接/间接/多轮）</text>
+    <text x="22" y="196" font-size="11.5" fill="#374151">• 越狱（角色/编码/虚构场景）</text>
+    <text x="22" y="216" font-size="11.5" fill="#374151">• 内容安全（八类有害信息）</text>
+    <text x="22" y="236" font-size="11.5" fill="#374151">• 数据泄露与越权（RAG/知识库）</text>
+    <text x="22" y="256" font-size="11.5" fill="#374151">• 幻觉·API 滥用·内容标识·Agent</text>
+
+    <rect x="270" y="130" width="230" height="150" rx="10" fill="#fff" stroke="#e5e7eb"/>
+    <text x="385" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">六大专项测评域</text>
+    <text x="282" y="176" font-size="11.5" fill="#374151">① 语料安全  ② 训练安全</text>
+    <text x="282" y="196" font-size="11.5" fill="#374151">③ 模型安全  ④ 推理服务安全</text>
+    <text x="282" y="216" font-size="11.5" fill="#374151">⑤ 内容安全  ⑥ 数据安全</text>
+    <text x="282" y="246" font-size="11" fill="#6b7280">依据 GB/T 45654-2025、GB 45438-2025</text>
+    <text x="282" y="264" font-size="11" fill="#6b7280">与大模型扩展要求整理</text>
+
+    <rect x="530" y="130" width="230" height="150" rx="10" fill="#fff" stroke="#e5e7eb"/>
+    <text x="645" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">10 项大模型高风险判定</text>
+    <text x="542" y="176" font-size="11.5" fill="#374151">• 越狱无过滤 · 语料含敏感信息</text>
+    <text x="542" y="196" font-size="11.5" fill="#374151">• API 无鉴权 · 注入致数据泄露</text>
+    <text x="542" y="216" font-size="11.5" fill="#374151">• 模型无校验 · 未备案 · 无标识</text>
+    <text x="542" y="236" font-size="11.5" fill="#374151">• 用户数据违规训练 · 幻觉失控</text>
+    <text x="542" y="256" font-size="11.5" fill="#374151">• 与承载系统越权互访</text>
+
+    <rect x="790" y="130" width="200" height="150" rx="10" fill="#fffbeb" stroke="#f59e0b"/>
+    <text x="890" y="152" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">整改与制度配套</text>
+    <text x="802" y="176" font-size="11.5" fill="#374151">• 高/中/低三级整改时限</text>
+    <text x="802" y="196" font-size="11.5" fill="#374151">• 大模型专项整改措施</text>
+    <text x="802" y="216" font-size="11.5" fill="#374151">• 复测验证闭环</text>
+    <text x="802" y="246" font-size="11" fill="#6b7280">10 份制度模板可直接取用</text>
+  </svg>
