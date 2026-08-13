@@ -50,6 +50,10 @@ description: 等保大模型测评技能。按网络安全等级保护制度（G
 - 整体判定：满足（所有单元无高风险不符合且符合项占比达标）→ 基本满足 → 不满足。
 - 高风险项：对照 2025版高风险判定指引，任一命中即整体结论降级，必须整改。见 `references/06`。
 
+## 使用教程（如何让各家 Agent 加载本 Skill）
+
+见 **[`USAGE.md`](USAGE.md)** —— 覆盖 A(原生 SKILL.md：Hermes/OpenClaw/Codex/Claude Code/Claude.ai/ChatGPT)、B(AGENTS.md 规则型：Cursor/Copilot)、C(国内平台：Coze/Dify/Kimi/百炼 知识库接入)、D(人工手册) 四类。首次使用先读 `USAGE.md` 选接入方式，再按本文件流程执行。
+
 ## 目录导航
 
 ### references/（按需加载）

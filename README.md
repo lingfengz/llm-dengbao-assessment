@@ -9,6 +9,7 @@
 ```
 大模型测评 skill/
 ├── SKILL.md                          # Skill 主入口（AI 加载此文件）
+├── USAGE.md                          # 使用教程（各 Agent 接入方式 A/B/C/D）
 ├── README.md                         # 本说明
 ├── 等保大模型测评方法总览.html        # 方法体系总览（浏览器直接打开）
 ├── references/                       # 测评知识库（按需加载）
@@ -34,7 +35,7 @@
 
 **测评人员**：从 `references/02`、`references/03` 选取测评项 → 按 `references/01` 实施 → 对照 `references/06` 判高风险 → 按 `references/05` 出整改要求 → 用 `assets/模板/` 出报告 → 用 `assets/制度文件模板/` 补齐制度。
 
-**AI 助手**：将本目录作为 Skill 加载，读取 `SKILL.md` 后按导航自动加载对应 reference 文件。
+**AI 助手**：先读 [`USAGE.md`](USAGE.md) 选择接入方式（Hermes/OpenClaw/Codex/Claude Code/国内平台/纯文档），再作为 Skill 加载本目录，读取 `SKILL.md` 后按导航自动加载对应 reference 文件。
 
 ## 依据的标准与文件
 
